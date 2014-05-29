@@ -1,0 +1,49 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath('org.springframework.boot:spring-boot-gradle-plugin:1.0.2.RELEASE')
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'spring-boot'
+apply plugin: 'war'
+
+repositories {
+    mavenCentral()
+}
+
+configurations {
+    providedRuntime
+}
+
+dependencies {
+    compile ('org.springframework.boot:spring-boot-starter-web:1.0.2.RELEASE',
+             'org.springframework:spring-jdbc:4.0.4.RELEASE',
+             'org.springframework:spring-messaging:4.0.4.RELEASE',
+             'org.mybatis:mybatis:3.2.7',
+             'org.mybatis:mybatis-spring:1.2.2')
+
+//        [group: 'org.springframework',      name: 'spring-websocket',              version: SPRING_VERSION],
+//        [group: 'org.springframework.boot', name: 'spring-boot-starter-web',       version: SPRING_BOOT_VERSION],
+//        [group: 'org.springframework.boot', name: 'spring-boot-starter-websocket', version: SPRING_BOOT_VERSION]
+
+    providedRuntime('org.springframework.boot:spring-boot-starter-tomcat:1.0.2.RELEASE')
+
+    runtime files('lib/ojdbc6-11.2.0.3.jar')
+}
+
+idea {
+    project {
+        jdkName = '1.8'
+        languageLevel = '1.8'
+    }
+}
+
+// http://www.gradle.org/docs/current/userguide/gradle_wrapper.html
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.11'
+}
